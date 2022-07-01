@@ -1,0 +1,1 @@
+# svelte-input-auto-width
