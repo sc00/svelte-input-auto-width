@@ -9,6 +9,7 @@ export const autoWidth = (
   const minWidth = options.minWidth;
   const maxWidth = options.maxWidth;
   const computedStyles = window.getComputedStyle(node);
+  const padding = computedStyles.getPropertyValue("padding");
   const fontFamily = computedStyles.getPropertyValue("font-family");
   const fontSize = computedStyles.getPropertyValue("font-size");
   const fontWeight = computedStyles.getPropertyValue("font-weight");
@@ -41,6 +42,7 @@ export const autoWidth = (
       whiteSpace,
       minWidth,
       maxWidth,
+      padding,
       fontFamily,
       fontSize,
       fontWeight,
