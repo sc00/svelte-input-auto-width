@@ -4,17 +4,22 @@ export const autoWidth = (
 ) => {
   /* Constants */
   const update = new Event("update");
-  const visibility = "hidden";
-  const whiteSpace = "pre";
-  const minWidth = options.minWidth;
-  const maxWidth = options.maxWidth;
   const computedStyles = window.getComputedStyle(node);
-  const padding = computedStyles.getPropertyValue("padding");
-  const fontFamily = computedStyles.getPropertyValue("font-family");
-  const fontSize = computedStyles.getPropertyValue("font-size");
-  const fontWeight = computedStyles.getPropertyValue("font-weight");
-  const fontStyle = computedStyles.getPropertyValue("font-style");
-  const letterSpacing = computedStyles.getPropertyValue("letter-spacing");
+  const mirrorStyles = {
+    display: "inline",
+    "font-family": computedStyles.getPropertyValue("font-family"),
+    "font-size": computedStyles.getPropertyValue("font-size"),
+    "font-weight": computedStyles.getPropertyValue("font-weight"),
+    "font-style": computedStyles.getPropertyValue("font-style"),
+    left: "-9999px",
+    "letter-spacing": computedStyles.getPropertyValue("letter-spacing"),
+    "max-width": options.maxWidth,
+    "min-width": options.minWidth,
+    padding: computedStyles.getPropertyValue("padding"),
+    position: "absolute",
+    visibility: "hidden",
+    "white-space": "pre",
+  };
 
   /* Variables */
   let mirror;
@@ -34,20 +39,8 @@ export const autoWidth = (
   const createMirror = () => {
     mirror = document.createElement("div");
 
-    Object.assign(mirror.style, {
-      display: "inline",
-      position: "absolute",
-      left: "-9999px",
-      visibility,
-      whiteSpace,
-      minWidth,
-      maxWidth,
-      padding,
-      fontFamily,
-      fontSize,
-      fontWeight,
-      fontStyle,
-      letterSpacing,
+    Object.keys(mirrorStyles).forEach((key) => {
+      mirror.style.setProperty(key, mirrorStyles[key]);
     });
 
     mirror.classList.add("svelte-input-auto-width-mirror");
