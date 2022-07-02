@@ -1,0 +1,21 @@
+{
+  "name": "svelte-input-auto-width",
+  "version": "1.0.0",
+  "description": "svelte action to set the width of input fields based on their value",
+  "main": "./index.mjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sc00/svelte-input-auto-width.git"
+  },
+  "keywords": [
+    "svelte",
+    "action",
+    "input-width"
+  ],
+  "author": "sc00",
+  "license": "GNU GPL V3",
+  "bugs": {
+    "url": "https://github.com/sc00/svelte-input-auto-width/issues"
+  },
+  "homepage": "https://github.com/sc00/svelte-input-auto-width#readme"
+}
