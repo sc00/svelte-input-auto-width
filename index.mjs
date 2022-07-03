@@ -69,7 +69,6 @@ export const autoWidth = (
 
   const addEventListeners = () => {
     node.addEventListener("input", (e) => {
-      console.log(`"${e.target.value}"`);
       dispatchUpdateEvent();
     });
     node.addEventListener("update", syncElements);
