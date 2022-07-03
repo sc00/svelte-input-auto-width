@@ -1,6 +1,6 @@
 {
   "name": "svelte-input-auto-width",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "svelte action to set the width of input fields based on their value",
   "main": "./index.mjs",
   "repository": {
