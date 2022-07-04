@@ -1,56 +1,42 @@
-export const autoWidth = (
-  node,
-  options = { minWidth: "1.5ch", maxWidth: "none" }
-) => {
+export const autoWidth = (node) => {
   /* Constants */
   const update = new Event("update");
-  const computedStyles = window.getComputedStyle(node);
-  const mirrorStyles = {
-    display: "inline",
-    "font-family": computedStyles.getPropertyValue("font-family"),
-    "font-size": computedStyles.getPropertyValue("font-size"),
-    "font-weight": computedStyles.getPropertyValue("font-weight"),
-    "font-style": computedStyles.getPropertyValue("font-style"),
-    left: "-9999px",
-    "letter-spacing": computedStyles.getPropertyValue("letter-spacing"),
-    "max-width": options.maxWidth,
-    "min-width": options.minWidth,
-    padding: computedStyles.getPropertyValue("padding"),
-    position: "absolute",
-    visibility: "hidden",
-    "white-space": "pre",
-  };
-
-  /* Variables */
-  let mirror;
 
   /* Functions */
   const init = () => {
-    createMirror();
+    addStyles();
     observeElement();
     addEventListeners();
-    syncElements();
+    setInitialWidth();
   };
 
   const dispatchUpdateEvent = () => {
     node.dispatchEvent(update);
   };
 
-  const createMirror = () => {
-    mirror = document.createElement("div");
+  const setInitialWidth = () => {
+    let width;
 
-    Object.keys(mirrorStyles).forEach((key) => {
-      mirror.style.setProperty(key, mirrorStyles[key]);
-    });
+    if (node.placeholder) {
+      node.value = node.placeholder;
+      width = node.scrollWidth;
+      console.log(width);
+      node.value = "";
+    } else {
+      node.style.width = "0px";
+      width = node.scrollWidth;
+    }
 
-    mirror.classList.add("svelte-input-auto-width-mirror");
-    mirror.setAttribute("aria-hidden", "true");
-
-    document.body.appendChild(mirror);
+    node.style.width = width + 5 + "px";
   };
 
-  const removeMirror = () => {
-    document.body.removeChild(mirror);
+  const setWidth = () => {
+    node.style.width = "0px";
+    node.style.width = node.scrollWidth + 5 + "px";
+  };
+
+  const addStyles = () => {
+    node.style.boxSizing = "border-box";
   };
 
   const observeElement = () => {
@@ -71,17 +57,12 @@ export const autoWidth = (
     node.addEventListener("input", (e) => {
       dispatchUpdateEvent();
     });
-    node.addEventListener("update", syncElements);
+    node.addEventListener("update", setWidth);
   };
 
   const removeEventListeners = () => {
     node.removeEventListener("input", dispatchUpdateEvent);
-    node.removeEventListener("update", syncElements);
-  };
-
-  const syncElements = () => {
-    mirror.innerText = node.value ? node.value : node.placeholder || "";
-    node.style.width = mirror.scrollWidth + "px";
+    node.removeEventListener("update", setWidth);
   };
 
   if (node.tagName.toLowerCase() !== "input") {
@@ -94,7 +75,6 @@ export const autoWidth = (
     return {
       destroy() {
         removeEventListeners();
-        removeMirror();
       },
     };
   }
