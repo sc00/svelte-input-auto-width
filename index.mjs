@@ -26,12 +26,12 @@ export const autoWidth = (node) => {
       width = node.scrollWidth;
     }
 
-    node.style.width = width + 5 + "px";
+    node.style.width = width + 6 + "px";
   };
 
   const setWidth = () => {
     node.style.width = "0px";
-    node.style.width = node.scrollWidth + 5 + "px";
+    node.style.width = node.scrollWidth + 6 + "px";
   };
 
   const addStyles = () => {
