@@ -20,7 +20,6 @@ export const autoWidth = (node) => {
     if (node.placeholder) {
       node.value = node.placeholder;
       width = node.scrollWidth;
-      console.log(width);
       node.value = "";
     } else {
       node.style.width = "0px";
