@@ -17,8 +17,9 @@ export const autoWidth = (node) => {
   const setInitialWidth = () => {
     let width;
 
-    if (node.placeholder) {
+    if (node.placeholder && !node.value) {
       node.value = node.placeholder;
+      node.style.width = "0px";
       width = node.scrollWidth;
       node.value = "";
     } else {
@@ -26,12 +27,12 @@ export const autoWidth = (node) => {
       width = node.scrollWidth;
     }
 
-    node.style.width = width + 6 + "px";
+    node.style.width = width + 5 + "px";
   };
 
   const setWidth = () => {
     node.style.width = "0px";
-    node.style.width = node.scrollWidth + 6 + "px";
+    node.style.width = node.scrollWidth + 5 + "px";
   };
 
   const addStyles = () => {
