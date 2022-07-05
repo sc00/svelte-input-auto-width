@@ -1,6 +1,7 @@
 export const autoWidth = (node) => {
   /* Constants */
   const update = new Event("update");
+  const buffer = 5;
 
   /* Functions */
   const init = () => {
@@ -27,12 +28,12 @@ export const autoWidth = (node) => {
       width = node.scrollWidth;
     }
 
-    node.style.width = width + 5 + "px";
+    node.style.width = width + buffer + "px";
   };
 
   const setWidth = () => {
     node.style.width = "0px";
-    node.style.width = node.scrollWidth + 5 + "px";
+    node.style.width = node.scrollWidth + buffer + "px";
   };
 
   const addStyles = () => {
@@ -54,7 +55,7 @@ export const autoWidth = (node) => {
   };
 
   const addEventListeners = () => {
-    node.addEventListener("input", (e) => {
+    node.addEventListener("input", () => {
       dispatchUpdateEvent();
     });
     node.addEventListener("update", setWidth);
